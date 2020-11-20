@@ -1,9 +1,11 @@
-<h1 style="text-align: center; color: grey">All cocktails</h1>
-
-<div class="cards">
-  <% @cocktails.each do |cocktail| %>
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cocktail.picture_url %>)">
-      <%= link_to cocktail.name, cocktail %>
-  </div>
+<h1 style="text-align : center">All Cocktails</h1>
+<div class="cards m-2">
+  <% @cocktails.shuffle.each do |cocktail| %>
+    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cocktail.picture_url %>)">
+      <%= link_to(cocktail.name, cocktail_path(cocktail)) %>
+    </div>
+  <% end %>
+  <%= link_to new_cocktail_path, class: "card-category" do%>
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>
   <% end %>
 </div>
