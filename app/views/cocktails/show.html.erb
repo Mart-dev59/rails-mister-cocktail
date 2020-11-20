@@ -1,31 +1,14 @@
-<!-- <div class="container">
-  <h1>The cocktail</h1>
-  <h1><%= @cocktail.name %></h1>
-
-  <ul class="list-group">
-    <h2>Ingredients</h2>
-    <% @cocktail.doses.each do |dose| %>
-      <li class="list-group-item"><%= dose.ingredient.name %>
-        <%= dose.description %>
-        <%= link_to "Remove",
-          dose_path(dose),
-          method: :delete,
-          data: { confirm: "Are you sure?" } %>
-      </li>
-    <% end %>
-  </ul> -->
-<!-- <br>
-<%= link_to "Back", cocktails_path, class: "btn btn-primary"  %>
-<%= link_to "Add new ingredient", new_cocktail_dose_path(@cocktail), class: "btn btn-primary"  %>
-</div> -->
-
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @cocktail.picture_url %>);background-size: cover;">
+<% if @cocktail.photo.present? %>
+  <% url = cl_image_path @cocktail.photo.key, width: 400, crop: :fill %>
+<% else %>
+  <% url = @cocktail.picture_url %>
+<% end %>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= url %>');background-size: cover;background-position: center">
   <div class="container p-5">
-    <h1 style="color: white;"><%= @cocktail.name %></h1>
+    <h1 style="color:white"><%= @cocktail.name %></h1>
   </div>
 </div>
-
-<div class="container mt-2">
+ <div class="container mt-2">
     <div class="row">
       <div class="col">
         <ul>
@@ -46,7 +29,7 @@
         <%= simple_form_for [ @cocktail, @dose ] do |f| %>
           <%= f.input :description %>
           <%= f.association :ingredient %>
-          <%= f.submit "Add Ingredient", class: "btn btn-primary" %>
+          <%= f.submit "Add Ingredient", class: "btn btn-primary float-right" %>
         <% end %>
       </div>
     </div>
